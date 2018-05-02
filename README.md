@@ -1,2 +1,3 @@
-# job_satisfaction_predictor
-A short quiz that predicts your job satisfaction level. Trained on Stack Overflow survey data.
+## Job Satisfaction Predictor
+
+Answer 12 questions to figure out your level of job satisfaction based on three models trained on different years of Stack Overflow Data.

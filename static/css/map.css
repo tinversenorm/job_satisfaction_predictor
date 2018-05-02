@@ -1,0 +1,15 @@
+.map-option {
+  padding: 0 10px;
+  text-align: center;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  border-radius: 0px;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 3px;
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+  margin: 10px;
+  height: 30px;
+}

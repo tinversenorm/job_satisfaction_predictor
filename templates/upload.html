@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EV Charger Placer</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/normalize.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/skeleton.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/upload.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat:600" rel="stylesheet">
+    </head>
+    <body>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "error" %}
+                        <h3>Error: {{ message }}</h3>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="nav">
+            <span class="logo nav-item">Home</span>
+            <a class="nav-item" href="#">About</a>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <h2 class="big-header">Electric Vehicle Charger Placement</h2>
+                <div class="line"></div>
+            </div>
+            <div class="row">
+                <div class="seven columns">
+                    <h4>
+                        <span class="big-number">1.</span> Choose the input type
+                    </h4>
+                    <div class="row" style="margin-top: -10px;">
+                        <button id="json-sel">JSON</button>
+                        <button id="csv-sel">CSV</button>
+                    </div>
+                    <form method="post" action="/run" enctype = "multipart/form-data">
+                    <h4>
+                        <span class="big-number">2.</span> Submit your files
+                    </h4>
+                        <div id="json-files" style="margin-top: -10px;">
+                            <label id="json-label" for="json-input" class="custom-file-upload">
+                                JSON input
+                            </label>
+                            <input type="file" id="json-input" name="json" />
+                        </div>
+                        <div id="csv-files" style="display:none; margin-top: -10px;">
+                            <label id="facilities-label" for="facilities-input" class="custom-file-upload">
+                                Facilities CSV
+                            </label>
+                            <input type="file" id="facilities-input" name="csvfacility"/>
+                            <label id="clients-label" for="clients-input" class="custom-file-upload">
+                                Clients CSV
+                            </label>
+                            <input type="file" id="clients-input" name="csvclient"/>
+                        </div>
+                    <h4>
+                        <span class="big-number">3.</span> Advanced settings
+                    </h4>
+                        <div id="advanced">
+                            <label id="power-label" for="power-input" class="custom-file-upload">
+                                    Power Lines CSV
+                            </label>
+                            <input type="file" id="power-input" name="csvpower"/>
+                            <input class="btn" type="submit" value="submit"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="five columns">
+                    <h5>What to Submit</h5>
+                    <div id="json-info">
+                        <h6><a href="{{url_for('static', filename='sample/test.json')}}" download="sample.json">sample.json</a></h6>
+                        <pre><code>{
+    "facilities": [
+        {"field1": value, ...}
+        ...
+    ],
+    "clients": [
+        {"field1": value, ...}
+        ...
+    ]
+}</code></pre>
+                        <p><strong>Facility fields</strong>: "lat", "long" (coordinates)</p>
+                        <p><strong>Client fields</strong>: "lat", "long", "population"</p>
+                    </div>
+                    <div id="csv-info" style="display: none;">
+                        <h6 style="display: inline;"><a href="{{url_for('static', filename='sample/test_facilities_small.csv')}}" download="facility_sample.csv">facility_sample.csv</a></h6>
+                        <h6 style="display: inline;"><a href="{{url_for('static', filename='sample/test_clients_small.csv')}}" download="client_sample.csv">client_sample.csv</a></h6>
+                        <table class="u-full-width">
+                          <thead>
+                            <tr>
+                              <th>field1</th>
+                              <th>field2</th>
+                              <th>...</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>value</td>
+                              <td>value</td>
+                              <td>...</td>
+                            </tr>
+                            <tr>
+                              <td>value</td>
+                              <td>value</td>
+                              <td>...</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Two CSV files are required at minimum: a facility csv and a client csv.</p>
+                        <p><strong>Facility columns</strong>: "facility" (the name of the facility), "lat", "long" (coordinates)</p>
+                        <p><strong>Client columns</strong>: "population", "lat", "long"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="{{url_for('static', filename='js/upload.js')}}"></script>
+    </body>
+</html>

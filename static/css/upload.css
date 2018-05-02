@@ -1,0 +1,91 @@
+/*
+ light red: FF446A;
+ bright red: FF224B;
+ eggshell: F7F6F6;
+ light blue: 00A4EB;
+ med blue: 009ADC;
+*/
+
+/***** Navigation Bar *****/
+.nav {
+    display: flex;
+    align-items: center;
+    margin: 0px 5%;
+}
+
+.nav-item {
+    margin: 15px 8px;
+}
+
+a, a:hover, a:visited {
+    text-decoration: none;
+}
+
+a {
+    color: #95a5a6;
+}
+
+
+/***** Main Body Styles *****/
+body {
+    font-family: 'Open Sans';
+}
+
+.big-header {
+    font-size: 10rem;
+    color: black;
+    font-family: 'Abril Fatface';
+}
+
+.big-number {
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.line {
+    border-bottom: 2px solid yellow;
+    margin-bottom: 1em;
+}
+
+.row-spacing {
+  margin-top: -1%;
+}
+
+/***** Button restyle *****/
+button, .btn, .custom-file-upload {
+  display: inline-block;
+  height: 36px;
+  padding: 0 30px;
+  color: black;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Open Sans';
+  line-height: 36px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 0px;
+  margin-right: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button:hover {
+    color: #6C7A89;
+    border-color: #F7CA18;
+    /*outline: 0;*/
+}
+
+button:focus, .btn-focus {
+    border-color: yellow;
+}
+
+/***** File input restyle *****/
+input[type="file"] {
+  display: none;
+}

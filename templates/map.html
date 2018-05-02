@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Google Maps</title>
+        <!-- Can pass in &key=%s -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/map.css')}}" />
+    </head>
+    <body style="margin:0px; padding:0px;">
+        <div id="map_canvas" style="width: 100%; height: 100%;"></div>
+        <script type="text/javascript">
+            var facilities = [
+            {% for fac in facilities %}
+                {lat: {{ fac.lat }},
+                 lng: {{ fac.long }},
+                 assignedClients: [
+                     {% for client in fac.assigned_clients %}
+                        {lat: {{client.lat}},
+                         lng: {{client.long}}},
+                     {% endfor %}
+                 ],
+                },
+            {% endfor %}
+            ];
+
+            var unassigned = [
+            {% for client in unassigned %}
+                {lat: {{ client.lat }},
+                 lng: {{ client.long }}},
+            {% endfor %}
+            ];
+
+            var powerlines = [
+            {% for line in powerlines %}
+                {start: {lat: {{line.startlat}}, lng: {{line.startlong}}},
+                 end:   {lat: {{line.endlat}},   lng: {{line.endlong}}},
+                 type: '{{line.type}}',
+                 beforeColor: '{{line.beforecolor}}',
+                 afterColor: '{{line.aftercolor}}',
+                },
+            {% endfor %}
+            ];
+
+            var house_img_url = '{{url_for('static', filename='image/home_red.png')}}';
+            var house_small_url = '{{url_for('static', filename='image/home_red_small.png')}}'
+            var fac_img_url = '{{url_for('static', filename='image/evcharger.png')}}';
+        </script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/gen_map.js')}}"> </script>
+    </body>
+</html>
