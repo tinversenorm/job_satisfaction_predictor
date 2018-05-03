@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Job Satisfaction Predictor</title>
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/normalize.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/skeleton.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/questions.css')}}">
-    <script type="text/javascript" src="{{url_for('static', filename='js/questions.js')}}"></script>
-	<link href="https://fonts.googleapis.com/css?family=Lato|Montserrat:600" rel="stylesheet">
+    <title>Job Satisfaction Predictor</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/normalize.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/skeleton.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/questions.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat:600" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
-		<div class="row">
+    <div class="container">
+        <div class="row">
             <h2 class="big-header">Job Satisfaction Quiz</h2>
         </div>
         <div class="row">
-        	<form method="get" action="/predict">
+            <form method="get" action="/predict">
                 <fieldset id="salary">
-                	<h5>How much money do you make per year?</h5>
-                	<input type="number" name="salary">
+                    <h5>How much money do you make per year?</h5>
+                    <input type="number" name="salary" min="0">
+                </fieldset>
+                <fieldset id="hours_per_week">
+                    <h5>How many hours do you work per week?</h5>
+                    <input type="number" name="hours_per_week" min="0">
+                </fieldset>
+                <fieldset id="interview">
+                    <h5>If you applied at Google, what percent chance would you have of getting an interview?</h5>
+                    <input type="number" name="interview" min="0" max="100">
                 </fieldset>
                 <fieldset id="choose_equip">
-                	<h5>Do you get to choose your equipment?</h5>
-                	<div style="margin-top: -20px;">
-                		<a class="yn" data="yes">Yes</a>
-                		<a class="yn" data="no">No</a>
-                	</div>
-                	<input type="hidden" value="1" name="choose_equip">
+                    <h5>Do you get to choose your equipment?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="choose_equip">
                 </fieldset>
                 <fieldset id="remote">
-                	<h5>Are you allowed to work remotely at all?</h5>
-                	<div style="margin-top: -20px;">
-                		<a class="yn" data="yes">Yes</a>
-                		<a class="yn" data="no">No</a>
-                	</div>
-                	<input type="hidden" value="1" name="remote">
+                    <h5>Are you allowed to work remotely at all?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="remote">
                 </fieldset>
                 <fieldset id="curr_job_less_than_year">
                     <h5>Have you been at your current job for less than a year?</h5>
@@ -67,10 +74,6 @@
                     </div>
                     <input type="hidden" value="1" name="look_postings_frequent">
                 </fieldset>
-                <fieldset id="interview">
-                    <h5>If you applied at Google, what percent chance would you have of getting an interview?</h5>
-                    <input type="number" name="salary" min="0" max="100">
-                </fieldset>
                 <fieldset id="like_developer">
                     <h5>Do you like being a developer?</h5>
                     <div style="margin-top: -20px;">
@@ -88,8 +91,21 @@
                     <input type="hidden" value="1" name="overpaid">
                 </fieldset>
                 <input class="btn" type="submit" value="submit"/>
-        	</form>
+            </form>
         </div>
-	</div>
+    </div>
+    <script>
+        Array.from(document.getElementsByClassName('yn')).forEach(ynText => {
+            var form = ynText.parentElement.parentElement.children;
+            var hiddenform = form[form.length - 1];
+
+            ynText.addEventListener('click', () => {
+                var currVal = 'yes' === ynText.attributes.data.value ? 1 : 0;
+                hiddenform.value = currVal;
+                ynText.classList.add('selected');
+                ynText.parentElement.children[currVal].classList.remove('selected');
+            });
+        });
+    </script>
 </body>
 </html>

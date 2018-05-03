@@ -20,7 +20,7 @@ def predict_job_satisfaction():
     if data is None:
         return jsonify({"error": "No Data Provided"})
     else:
-        job_satisfaction = predict(data)
+        job_satisfaction = predict(data.to_dict())
         if job_satisfaction == -1:
             return jsonify({"error": "Malformed Data"})
         else:

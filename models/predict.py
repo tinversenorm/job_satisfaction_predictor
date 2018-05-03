@@ -69,10 +69,9 @@ def predict(user_in):
     If user_in does not contain all REQUIRED_KEYS, returns -1.
     """
     try:
-        for key in REQUIRED_KEYS:
-            user_in[key] = float(user_in[key])
-    except (ValueError, TypeError):
+        to_predict = {key: float(user_in[key]) for key in REQUIRED_KEYS}
+    except (ValueError, TypeError, KeyError):
         return -1
 
-    out = sum(predict_year(user_in, i) for i in xrange(NUM_MODELS)) / NUM_MODELS
+    out = sum(predict_year(to_predict, i) for i in xrange(NUM_MODELS)) / NUM_MODELS
     return clip(out, 0, 10)
