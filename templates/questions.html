@@ -13,24 +13,47 @@
             <h2 class="big-header">Job Satisfaction Quiz</h2>
         </div>
         <div class="row">
-        	<form>
-        		<h5>What is my name?</h5>
-        		<label class="btn-container">One
-                  <input type="radio" checked="checked" name="radio">
-                  <span class="radio"></span>
-                </label>
-                <label class="btn-container">Two
-                  <input type="radio" name="radio">
-                  <span class="radio"></span>
-                </label>
-                <label class="btn-container">Three
-                  <input type="radio" name="radio">
-                  <span class="radio"></span>
-                </label>
-                <label class="btn-container">Four
-                  <input type="radio" name="radio">
-                  <span class="radio"></span>
-                </label>
+        	<form method="get" action="/predict">
+        		<fieldset id="test">
+	        		<h5>Pick a number.</h5>
+	        		<label class="btn-container">One
+	                  	<input type="radio" checked="checked" value="1" name="radio">
+	                  	<span class="radio"></span>
+	                </label>
+	                <label class="btn-container">Two
+	                  	<input type="radio" value="2" name="radio">
+	                  	<span class="radio"></span>
+	                </label>
+	                <label class="btn-container">Three
+	                  	<input type="radio" name="radio">
+	                  	<span class="radio"></span>
+	                </label>
+	                <label class="btn-container">Four
+	                  	<input type="radio" name="radio">
+	                  	<span class="radio"></span>
+	                </label>
+                </fieldset>
+                <fieldset id="salary">
+                	<h5>How much money do you make per year?</h5>
+                	<input type="number" name="salary">
+                </fieldset>
+                <fieldset id="choose_equip">
+                	<h5>Do you get to choose your equipment?</h5>
+                	<div style="margin-top: -20px;">
+                		<a class="yn" data="yes">Yes</a>
+                		<a class="yn" data="no">No</a>
+                	</div>
+                	<input type="hidden" value="yes" name="choose_equip">
+                </fieldset>
+                <fieldset id="choose_equip">
+                	<h5>Do you get to choose your equipment?</h5>
+                	<div style="margin-top: -20px;">
+                		<a class="yn" data="yes">Yes</a>
+                		<a class="yn" data="no">No</a>
+                	</div>
+                	<input type="hidden" value="yes" name="choose_equip">
+                </fieldset>
+                <input class="btn" type="submit" value="submit"/>
         	</form>
         </div>
 	</div>

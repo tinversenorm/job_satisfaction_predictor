@@ -3,12 +3,22 @@
 .big-header {
 	font-family: "Montserrat";
 	font-weight: 600;
+    margin-top: 3%;
 }
 
 body {
 	font-family: "Lato";
 }
 
+.yn {
+	font-size: 2rem;
+	margin-right: 2%;
+	color: black;
+}
+
+.yn:focus, .yn:active {
+	color: #5B3256;
+}
 
 /***** Custom Button Styles *****/
 
