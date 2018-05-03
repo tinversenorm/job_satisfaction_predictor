@@ -1,7 +1,6 @@
 """
 Predicts job satisfaction based on models trained by the Stack Overflow Developer Survey.
 """
-import numbers
 import os
 import xgboost as xgb
 
@@ -69,9 +68,10 @@ def predict(user_in):
     Predict job satisfaction using the data provided.
     If user_in does not contain all REQUIRED_KEYS, returns -1.
     """
-    if not all(key in user_in and isinstance(user_in[key], (numbers.Real, bool))
-               for key in REQUIRED_KEYS):
-
+    try:
+        for key in REQUIRED_KEYS:
+            user_in[key] = float(user_in[key])
+    except (ValueError, TypeError):
         return -1
 
     out = sum(predict_year(user_in, i) for i in xrange(NUM_MODELS)) / NUM_MODELS

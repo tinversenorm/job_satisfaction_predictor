@@ -16,6 +16,10 @@ body {
 	color: black;
 }
 
+.selected {
+    color: #2980b9;
+}
+
 .yn:focus, .yn:active {
 	color: #5B3256;
 }
