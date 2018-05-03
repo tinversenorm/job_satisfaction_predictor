@@ -1,6 +1,8 @@
 """
 Predicts job satisfaction based on models trained by the Stack Overflow Developer Survey.
 """
+import numbers
+import os
 import xgboost as xgb
 
 FEATS_2015 = {
@@ -26,10 +28,10 @@ FEATS_2017 = {
     'Salary': 'salary',
 }
 
-# TODO: fix these filepaths
-XGB_2015 = xgb.Booster(model_file='models/output2015.model')
-XGB_2016 = xgb.Booster(model_file='models/output2016.model')
-XGB_2017 = xgb.Booster(model_file='models/output2017.model')
+CURR_FOLDER = os.path.dirname(os.path.realpath(__file__))
+XGB_2015 = xgb.Booster(model_file=os.path.join(CURR_FOLDER, 'output2015.model'))
+XGB_2016 = xgb.Booster(model_file=os.path.join(CURR_FOLDER, 'output2016.model'))
+XGB_2017 = xgb.Booster(model_file=os.path.join(CURR_FOLDER, 'output2017.model'))
 
 MODELS = (
     (XGB_2015, FEATS_2015),
@@ -60,14 +62,16 @@ def predict_year(user_in, year):
     model_in = [float(user_in[MODELS[year][1][feat]]) for feat in feats]
     model_in = xgb.DMatrix(model_in, feature_names=feats)
 
-    return MODELS[year][0].copy().predict(model_in)
+    return MODELS[year][0].copy().predict(model_in)[0]
 
 def predict(user_in):
     """
     Predict job satisfaction using the data provided.
     If user_in does not contain all REQUIRED_KEYS, returns -1.
     """
-    if not all(key in user_in for key in REQUIRED_KEYS):
+    if not all(key in user_in and isinstance(user_in[key], (numbers.Real, bool))
+               for key in REQUIRED_KEYS):
+
         return -1
 
     out = sum(predict_year(user_in, i) for i in xrange(NUM_MODELS)) / NUM_MODELS
