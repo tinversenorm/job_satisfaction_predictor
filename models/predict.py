@@ -4,28 +4,29 @@ Predicts job satisfaction based on models trained by the Stack Overflow Develope
 import os
 import xgboost as xgb
 
-FEATS_2015 = {
-    'Compensation: midpoint': 'salary',
-    'Purchasing Power_I have no say in purchasing what I need or want at work': 'no_purchase_power',
-    'Remote Status_Never': 'remote',
-    'Changed Jobs in last 12 Months': 'curr_job_less_than_year',
-}
+FEATS_2015 = [
+    ('Compensation: midpoint', 'salary'),
+    ('Purchasing Power_I have no say in purchasing what I need or want at work',
+     'no_purchase_power'),
+    ('Remote Status_Never', 'remote'),
+    ('Changed Jobs in last 12 Months', 'curr_job_less_than_year'),
+]
 
-FEATS_2016 = {
-    'agree_loveboss': 'like_boss',
-    'agree_tech': 'job_technologies',
-    'open_to_new_job_I am actively looking for a new job': 'look_postings_frequent',
-    'interview_likelihood': 'interview',
-}
+FEATS_2016 = [
+    ('agree_loveboss', 'like_boss'),
+    ('agree_tech', 'job_technologies'),
+    ('open_to_new_job_I am actively looking for a new job', 'look_postings_frequent'),
+    ('interview_likelihood', 'interview'),
+]
 
-FEATS_2017 = {
-    'CareerSatisfaction': 'like_developer',
-    'HoursPerWeek': 'hours_per_week',
-    'Overpaid': 'overpaid',
-    'LastNewJob_Less than a year ago': 'curr_job_less_than_year',
-    'InfluenceWorkstation': 'choose_equip',
-    'Salary': 'salary',
-}
+FEATS_2017 = [
+    ('CareerSatisfaction', 'like_developer'),
+    ('HoursPerWeek', 'hours_per_week'),
+    ('Overpaid', 'overpaid'),
+    ('LastNewJob_Less than a year ago', 'curr_job_less_than_year'),
+    ('InfluenceWorkstation', 'choose_equip'),
+    ('Salary', 'salary'),
+]
 
 CURR_FOLDER = os.path.dirname(os.path.realpath(__file__))
 XGB_2015 = xgb.Booster(model_file=os.path.join(CURR_FOLDER, 'output2015.model'))
@@ -39,7 +40,7 @@ MODELS = (
 )
 
 NUM_MODELS = len(MODELS)
-REQUIRED_KEYS = set(feat for model in MODELS for feat in model[1].values())
+REQUIRED_KEYS = set(feat[1] for model in MODELS for feat in model[1])
 
 def clip(num, low, high):
     """
@@ -57,11 +58,11 @@ def predict_year(user_in, year):
     """
     Get the prediction for a specific year's model.
     """
-    feats = MODELS[year][1].keys()
-    model_in = [float(user_in[MODELS[year][1][feat]]) for feat in feats]
+    feats = [feat[0] for feat in MODELS[year][1]]
+    model_in = [float(user_in[feat[1]]) for feat in MODELS[year][1]]
+
     model_in = xgb.DMatrix(model_in, feature_names=feats)
     out = MODELS[year][0].copy().predict(model_in)[0]
-    print out
 
     return out
 
@@ -74,10 +75,7 @@ def predict(user_in):
         user_in['look_postings_frequent'] = float(user_in['hours_per_week'] > 1)
         user_in['no_purchase_power'] = float(float(user_in['choose_equip']) == 1.0)
         user_in['remote'] = 1.0 - float(user_in['remote'])
-        for key in REQUIRED_KEYS:
-            print key
-            print key in user_in
-            print float(user_in[key])
+
         to_predict = {key: float(user_in[key]) for key in REQUIRED_KEYS}
     except (ValueError, TypeError, KeyError):
         return -1
