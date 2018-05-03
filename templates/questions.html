@@ -14,25 +14,6 @@
         </div>
         <div class="row">
         	<form method="get" action="/predict">
-        		<fieldset id="test">
-	        		<h5>Pick a number.</h5>
-	        		<label class="btn-container">One
-	                  	<input type="radio" checked="checked" value="1" name="radio">
-	                  	<span class="radio"></span>
-	                </label>
-	                <label class="btn-container">Two
-	                  	<input type="radio" value="2" name="radio">
-	                  	<span class="radio"></span>
-	                </label>
-	                <label class="btn-container">Three
-	                  	<input type="radio" name="radio">
-	                  	<span class="radio"></span>
-	                </label>
-	                <label class="btn-container">Four
-	                  	<input type="radio" name="radio">
-	                  	<span class="radio"></span>
-	                </label>
-                </fieldset>
                 <fieldset id="salary">
                 	<h5>How much money do you make per year?</h5>
                 	<input type="number" name="salary">
@@ -43,15 +24,67 @@
                 		<a class="yn" data="yes">Yes</a>
                 		<a class="yn" data="no">No</a>
                 	</div>
-                	<input type="hidden" value="yes" name="choose_equip">
+                	<input type="hidden" value="1" name="choose_equip">
                 </fieldset>
-                <fieldset id="choose_equip">
-                	<h5>Do you get to choose your equipment?</h5>
+                <fieldset id="remote">
+                	<h5>Are you allowed to work remotely at all?</h5>
                 	<div style="margin-top: -20px;">
                 		<a class="yn" data="yes">Yes</a>
                 		<a class="yn" data="no">No</a>
                 	</div>
-                	<input type="hidden" value="yes" name="choose_equip">
+                	<input type="hidden" value="1" name="remote">
+                </fieldset>
+                <fieldset id="curr_job_less_than_year">
+                    <h5>Have you been at your current job for less than a year?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="curr_job_less_than_year">
+                </fieldset>
+                <fieldset id="like_boss">
+                    <h5>Do you like your boss?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="like_boss">
+                </fieldset>
+                <fieldset id="job_technologies">
+                    <h5>Do you like the technologies you use at work?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="job_technologies">
+                </fieldset>
+                <fieldset id="look_postings_frequent">
+                    <h5>Do you like the technologies you use at work?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="look_postings_frequent">
+                </fieldset>
+                <fieldset id="interview">
+                    <h5>If you applied at Google, what chance would you have of getting an interview?</h5>
+                    <input type="number" name="salary" min="0" max="100">
+                </fieldset>
+                <fieldset id="like_developer">
+                    <h5>Do you like being a developer?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="like_developer">
+                </fieldset>
+                <fieldset id="overpaid">
+                    <h5>Do you like being a developer?</h5>
+                    <div style="margin-top: -20px;">
+                        <a class="yn" data="yes">Yes</a>
+                        <a class="yn" data="no">No</a>
+                    </div>
+                    <input type="hidden" value="1" name="overpaid">
                 </fieldset>
                 <input class="btn" type="submit" value="submit"/>
         	</form>
