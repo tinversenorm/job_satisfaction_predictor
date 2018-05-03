@@ -24,7 +24,7 @@ def predict_job_satisfaction():
         if job_satisfaction == -1:
             return jsonify({"error": "Malformed Data"})
         else:
-            return jsonify({"job_satisfaction": predict(data)})
+            return jsonify({"job_satisfaction": job_satisfaction})
 
 if __name__ == '__main__':
     app.run()

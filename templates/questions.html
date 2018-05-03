@@ -19,20 +19,32 @@
                     <input type="number" name="salary" min="0">
                 </fieldset>
                 <fieldset id="hours_per_week">
-                    <h5>How many hours do you work per week?</h5>
+                    <h5>During a typical week, approximately how many hours do you spend on activities related to finding new job opportunities?</h5>
                     <input type="number" name="hours_per_week" min="0">
                 </fieldset>
                 <fieldset id="interview">
                     <h5>If you applied at Google, what percent chance would you have of getting an interview?</h5>
                     <input type="number" name="interview" min="0" max="100">
                 </fieldset>
+                <fieldset id="overpaid">
+                    <h5>On a scale of 1-5, how much to you agree with the statement: "I think I am overpaid"?</h5>
+                    <input type="number" name="overpaid" min="0" max="5">
+                </fieldset>
+                <fieldset id="like_boss">
+                    <h5>On a scale of 1-5, how much do you agree with the statement: "I like my boss"?</h5>
+                    <input type="number" name="like_boss" min="0" max="5">
+                </fieldset>
+                <fieldset id="job_technologies">
+                    <h5>On a scale of 1-5, how much do you agree with the statement: "I love the technlologies I use at work"?</h5>
+                    <input type="number" name="job_technologies" min="0" max="5">
+                </fieldset>
                 <fieldset id="choose_equip">
-                    <h5>Do you get to choose your equipment?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="choose_equip">
+                    <h5>On a scale of 1-5, how much do you agree with the statement: "I can choose the equipment I use at work"?</h5>
+                    <input type="number" name="choose_equip" min="0" max="5">
+                </fieldset>
+                <fieldset id="like_developer">
+                    <h5>On a scale of 1 to 10, how much do you like being a developer?</h5>
+                    <input type="number" name="like_developer" min="0" max="10">
                 </fieldset>
                 <fieldset id="remote">
                     <h5>Are you allowed to work remotely at all?</h5>
@@ -49,46 +61,6 @@
                         <a class="yn" data="no">No</a>
                     </div>
                     <input type="hidden" value="1" name="curr_job_less_than_year">
-                </fieldset>
-                <fieldset id="like_boss">
-                    <h5>Do you like your boss?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="like_boss">
-                </fieldset>
-                <fieldset id="job_technologies">
-                    <h5>Do you like the technologies you use at work?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="job_technologies">
-                </fieldset>
-                <fieldset id="look_postings_frequent">
-                    <h5>Do you look at job postings frequently?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="look_postings_frequent">
-                </fieldset>
-                <fieldset id="like_developer">
-                    <h5>Do you like being a developer?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="like_developer">
-                </fieldset>
-                <fieldset id="overpaid">
-                    <h5>Do you think that you are overpaid?</h5>
-                    <div style="margin-top: -20px;">
-                        <a class="yn" data="yes">Yes</a>
-                        <a class="yn" data="no">No</a>
-                    </div>
-                    <input type="hidden" value="1" name="overpaid">
                 </fieldset>
                 <input class="btn" type="submit" value="submit"/>
             </form>

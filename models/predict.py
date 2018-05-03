@@ -5,8 +5,8 @@ import os
 import xgboost as xgb
 
 FEATS_2015 = {
-    'Compensation': 'salary',
-    'Purchasing Power_I have no say in purchasing what I need or want at work': 'choose_equip',
+    'Compensation: midpoint': 'salary',
+    'Purchasing Power_I have no say in purchasing what I need or want at work': 'no_purchase_power',
     'Remote Status_Never': 'remote',
     'Changed Jobs in last 12 Months': 'curr_job_less_than_year',
 }
@@ -60,8 +60,10 @@ def predict_year(user_in, year):
     feats = MODELS[year][1].keys()
     model_in = [float(user_in[MODELS[year][1][feat]]) for feat in feats]
     model_in = xgb.DMatrix(model_in, feature_names=feats)
+    out = MODELS[year][0].copy().predict(model_in)[0]
+    print out
 
-    return MODELS[year][0].copy().predict(model_in)[0]
+    return out
 
 def predict(user_in):
     """
@@ -69,6 +71,13 @@ def predict(user_in):
     If user_in does not contain all REQUIRED_KEYS, returns -1.
     """
     try:
+        user_in['look_postings_frequent'] = float(user_in['hours_per_week'] > 1)
+        user_in['no_purchase_power'] = float(float(user_in['choose_equip']) == 1.0)
+        user_in['remote'] = 1.0 - float(user_in['remote'])
+        for key in REQUIRED_KEYS:
+            print key
+            print key in user_in
+            print float(user_in[key])
         to_predict = {key: float(user_in[key]) for key in REQUIRED_KEYS}
     except (ValueError, TypeError, KeyError):
         return -1
