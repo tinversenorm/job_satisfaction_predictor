@@ -13,7 +13,7 @@
             <h2 class="big-header">Job Satisfaction Quiz</h2>
         </div>
         <div class="row">
-            <form method="get" action="/predict">
+            <form method="get" action="/predict" onsubmit="return getPrediction()">
                 <fieldset id="salary">
                     <h5>How much money do you make per year?</h5>
                     <input type="number" name="salary" min="0">
@@ -63,10 +63,10 @@
                     <input type="hidden" value="1" name="curr_job_less_than_year">
                 </fieldset>
                 <input class="btn" type="submit" value="submit"/>
-                <!--<a class="button" onclick="submitSurvey()">Submit</a>-->
             </form>
         </div>
     </div>
+    <p id="output"></p>
     <script>
         Array.from(document.getElementsByClassName('yn')).forEach(ynText => {
             var form = ynText.parentElement.parentElement.children;
@@ -91,36 +91,29 @@
             return s;
         }
 
-        document.forms[0].addEventListener('submit', function(ev) {
-
+        function getPrediction() {
             var oReq = new XMLHttpRequest();
-            oReq.open("GET", document.forms[0].action, true);
-            req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            var str = urlencodeFormData(new FormData(document.forms[0]));
+            oReq.open("GET", document.forms[0].action + '?' + str, true);
+            oReq.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 
             oReq.onload = function(oEvent) {
                 if (oReq.status == 200) {
-                  window.job_satisfaction = oReq.responseText;
+                    var result = JSON.parse(oReq.responseText);
+                    if(result.job_satisfaction) {
+                        window.job_satisfaction = 'Job Satisfaction: ' + result.job_satisfaction + '/10';
+                    } else {
+                        window.job_satisfaction = result.error;
+                    }
                 } else {
-                  window.job_satisfaction = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
+                    window.job_satisfaction = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
                 }
-                console.log(window.job_satisfaction);
+
+                document.getElementById('output').innerText = window.job_satisfaction;
             };
 
-            ev.preventDefault();
-            ev.stopPropagation();
-            oReq.send(urlencodeFormData(new FormData(document.forms[0])));
-        }, false);
-
-        function submitSurvey() {
-            var req = new XMLHttpRequest();
-            var form = document.forms[0]; //document.getElementById("survey");
-            req.open('GET', form.action, true);
-            req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            req.onload = function() {
-                window.job_satisfaction = req.responseText;
-                console.log(window.job_satisfaction);
-            };
-            req.send(urlencodeFormData(new FormData(form)));
+            oReq.send();
+            return false;
         }
     </script>
 </body>
